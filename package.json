@@ -1,4 +1,5 @@
 {
+  "engines": {"node" : "16.x"},
   "name": "tech-blog",
   "version": "1.0.0",
   "description": "",
