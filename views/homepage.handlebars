@@ -1,0 +1,10 @@
+<main>
+  <article class="container is-fluid">
+    {{#each posts}}
+      <section class="content box section">
+        <h3>{{this.title}}</h3>
+        <p>{{this.content}}</p>
+      </section>
+    {{/each}}
+  </article>
+</main>

@@ -1,1 +1,5 @@
 @import "https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css";
+
+nav {
+  margin-bottom: 2rem;
+}
