@@ -9,3 +9,13 @@ figure {
 nav {
   margin-bottom: 1.5rem;
 }
+
+#login input,
+button {
+  margin-bottom: 1rem;
+}
+
+#signup input,
+button {
+  margin-bottom: 1rem;
+}

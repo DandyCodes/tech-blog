@@ -1,13 +1,19 @@
-<main class="container is-fluid">
-  <article class="box">
-    <h3 class="title">Login</h3>
+<main id="login" class="container">
+  <article class="box has-text-centered">
+    <p class="title">Login</p>
+    <label class="subtitle has-text-white" for="username">Username</label>
     <section>
-      <label for="username">Username</label>
-      <input id="username" type="text" />
+      <input class="subtitle has-text-black" id="username" type="text" />
+    </section>
+    <label class="subtitle has-text-white" for="password">Password</label>
+    <section>
+      <input class="subtitle has-text-black" id="password" type="password" />
     </section>
     <section>
-      <label for="password">Password</label>
-      <input id="password" type="password" />
+      <button class="button is-primary is-medium">Login</button>
     </section>
+    <a href="/signup">
+      Sign up instead
+    </a>
   </article>
 </main>
