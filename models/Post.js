@@ -25,17 +25,9 @@ Post.init(
         notEmpty: true,
       },
     },
-    timestamp: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     sequelize: sequelizeConnection,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: "user",
   }
 );
 
