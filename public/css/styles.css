@@ -1,5 +1,11 @@
 @import "https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css";
 
+figure {
+  display: flex;
+  width: 14rem;
+  margin-right: 0.5rem;
+}
+
 nav {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
