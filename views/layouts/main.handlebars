@@ -40,7 +40,7 @@
             <div class="navbar-item">
               <div class="buttons">
                 {{#if loggedIn}}
-                  <a class="button is-light">
+                  <a id="logout-button" class="button is-light">
                     Log Out
                   </a>
                 {{else}}
@@ -55,5 +55,6 @@
       </nav>
     </header>
     {{{body}}}
+    <script src="/js/main.js"></script>
   </body>
 </html>
