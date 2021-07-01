@@ -40,11 +40,15 @@
             <div class="navbar-item">
               <div class="buttons">
                 {{#if loggedIn}}
-                  <a id="logout-button" class="button is-light">
+                  <a id="nav-logout-button" class="button is-light">
                     Log Out
                   </a>
                 {{else}}
-                  <a class="button is-light" href="/login">
+                  <a
+                    id="nav-login-button"
+                    class="button is-light"
+                    href="/login"
+                  >
                     Log in
                   </a>
                 {{/if}}
