@@ -1,7 +1,7 @@
 <main class="container is-fluid">
   <button class="button is-link is-medium">Create New Post</button>
   {{#each posts}}
-    <article class="box post">
+    <article class="box post" data-id="{{this.id}}">
       <p class="title post-title">{{this.title}}</p>
       <input
         class="post-title-input title has-text-black is-hidden"
@@ -15,7 +15,9 @@
         id="post-{{this.id}}-content-textarea"
       ></textarea>
       <button class="update-button button is-primary is-medium is-hidden">Update</button>
-      <button class="cancel-button button  is-medium is-hidden">Cancel</button>
+      <button class="cancel-button button is-medium is-hidden">Cancel</button>
+      <br>
+      <button class="delete-button button is-medium is-danger is-hidden">Delete Post</button>
     </article>
   {{/each}}
 </main>
