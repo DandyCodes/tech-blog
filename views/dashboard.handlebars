@@ -1,5 +1,23 @@
 <main class="container is-fluid">
-  <button class="button is-link is-medium">Create New Post</button>
+  <button id="construct-button" class="button is-link is-medium">Create New Post</button>
+  <article id="new-post" class="box is-hidden">
+    <label for="create-input">Title</label>
+    <input
+      class="post-title-input title has-text-black"
+      name="create-title-input"
+      id="create-title-input"
+    ></input>
+    <label for="create-input">Content</label>
+    <textarea
+      class="post-content-textarea"
+      name="create-content-textarea"
+      id="create-content-textarea"
+    ></textarea>
+    <button
+      id="create-button" class="button is-primary is-medium"
+    >Create</button>
+    <button id="cancel-create-button" class="button is-medium">Cancel</button>
+  </article>
   {{#each posts}}
     <article class="box post" data-id="{{this.id}}">
       <p class="title post-title">{{this.title}}</p>
@@ -14,10 +32,13 @@
         name="post-{{this.id}}-content-textarea"
         id="post-{{this.id}}-content-textarea"
       ></textarea>
-      <button class="update-button button is-primary is-medium is-hidden">Update</button>
-      <button class="cancel-button button is-medium is-hidden">Cancel</button>
-      <br>
-      <button class="delete-button button is-medium is-danger is-hidden">Delete Post</button>
+      <button
+        class="update-button button is-primary is-medium is-hidden"
+      >Update</button>
+      <button class="cancel-edit-button button is-medium is-hidden">Cancel</button>
+      <br />
+      <button class="delete-button button is-medium is-danger is-hidden">Delete
+        Post</button>
     </article>
   {{/each}}
 </main>
