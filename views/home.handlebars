@@ -10,7 +10,7 @@
           {{this.niceDate}}</p>
         <p>{{this.content}}</p>
       </section>
-      <section class="comments container is-fluid">
+      <section class="comments">
         {{#each this.comments}}
           <div class="comment has-background-primary box" data-id="{{this.id}}">
             <p class="subtitle is-5">
@@ -23,19 +23,21 @@
               {{this.content}}
             </p>
             {{#if this.owned}}
-              <a
+              <button
                 class="delete-comment-button button is-danger is-small"
-              >Delete</a>
+              >Delete</button>
             {{/if}}
           </div>
         {{/each}}
-        <section class="new-comment container is-fluid">
+        <section class="new-comment">
           <textarea
             name="new-comment-textarea"
             class="new-comment-textarea"
           ></textarea>
-          <a class="create-comment-button button is-primary is-medium">Post</a>
-          <a class="close-comments-button button is-medium">Close</a>
+          <button
+            class="create-comment-button button is-primary is-medium"
+          >Post</button>
+          <button class="close-comments-button button is-medium">Close</button>
         </section>
       </section>
     </article>

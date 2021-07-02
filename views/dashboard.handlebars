@@ -1,5 +1,5 @@
 <main class="container is-fluid">
-  <a id="create-button" class="button is-link is-medium">Create New Post</a>
+  <button id="create-button" class="button is-link is-medium">Create New Post</button>
   <article id="new-post" class="box is-hidden">
     <label for="create-title-input">Title</label>
     <input
@@ -13,10 +13,10 @@
       name="create-content-textarea"
       id="create-content-textarea"
     ></textarea>
-    <a
+    <button
       id="post-button" class="button is-primary is-medium"
-    >Post</a>
-    <a class="cancel-button button is-medium">Cancel</a>
+    >Post</button>
+    <button class="cancel-button button is-medium">Cancel</button>
   </article>
   {{#each posts}}
     <article class="box post" data-id="{{this.id}}">
@@ -40,9 +40,9 @@
         <button
           class="update-button button is-primary is-medium"
         >Update</button>
-        <a class="cancel-button button is-medium">Cancel</a>
+        <button class="cancel-button button is-medium">Cancel</button>
         <br />
-        <a class="delete-button button is-medium is-danger">Delete</a>
+        <button class="delete-button button is-medium is-danger">Delete</button>
       </section>
 
     </article>
