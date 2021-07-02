@@ -29,14 +29,14 @@
             {{/if}}
           </div>
         {{/each}}
-      </section>
-      <section class="new-comment container is-fluid is-hidden">
-        <textarea
-          name="new-comment-textarea"
-          class="new-comment-textarea"
-        ></textarea>
-        <a class="create-comment-button button is-primary is-medium">Post</a>
-        <a class="cancel-create-comment-button button is-medium">Cancel</a>
+        <section class="new-comment container is-fluid">
+          <textarea
+            name="new-comment-textarea"
+            class="new-comment-textarea"
+          ></textarea>
+          <a class="create-comment-button button is-primary is-medium">Post</a>
+          <a class="close-comments-button button is-medium">Close</a>
+        </section>
       </section>
     </article>
   {{/each}}
