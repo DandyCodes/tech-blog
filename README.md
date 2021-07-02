@@ -6,9 +6,9 @@
 
 A CMS-style tech blog site where users can publish new posts and comment on existing posts. It follows the MVC paradigm in its architectural structure, using Handlebars.js as the templating language, Sequelize as the ORM, and the express-session npm package for authentication. It is deployed on Heroku.
 
-![a screenshot of the deployed website](/img/screenshot-1.png)
+![a screenshot of the deployed website](./public/img/screenshot-1.png)
 
-![a screenshot of the deployed website](/img/screenshot-2.png)
+![a screenshot of the deployed website](./public/img/screenshot-2.png)
 
 ## Table of Contents:
 
