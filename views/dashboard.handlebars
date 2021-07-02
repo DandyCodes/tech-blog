@@ -1,3 +1,9 @@
-<main>
-  DASHBOARD
+<main class="container is-fluid">
+  <button class="button is-link is-medium">Create New Post</button>
+  {{#each posts}}
+    <article class="box post">
+      <p class="title">{{this.title}}</p>
+      <p>{{this.content}}</p>
+    </article>
+  {{/each}}
 </main>

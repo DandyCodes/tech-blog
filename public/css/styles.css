@@ -1,5 +1,16 @@
 @import "https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css";
 
+:root {
+  --primary: rgba(55, 90, 127, 1);
+  --info: rgba(50, 152, 220, 1);
+  --link: rgba(26, 188, 156, 1);
+  --light: rgba(236, 240, 241, 1);
+  --dark: rgba(40, 47, 47);
+  --success: rgba(46, 204, 113, 1);
+  --warning: rgba(241, 183, 14, 1);
+  --danger: rgba(231, 76, 60, 1);
+}
+
 figure {
   display: flex;
   width: 14rem;
@@ -18,4 +29,24 @@ button {
 #signup input,
 button {
   margin-bottom: 1rem;
+}
+
+.post {
+  cursor: pointer;
+}
+
+.post:hover {
+  background-color: var(--dark);
+}
+
+.post:hover .title {
+  color: var(--link);
+}
+
+.comment {
+  margin-top: 1.5rem;
+}
+
+.comment .subtitle {
+  color: var(--link);
 }

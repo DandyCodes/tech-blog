@@ -1,8 +1,30 @@
 <main class="container is-fluid">
   {{#each posts}}
-    <article class="content box">
-      <h3>{{this.title}}</h3>
-      <p>{{this.content}}</p>
+    <article class="box post">
+      <section>
+        <p class="title">{{this.title}}</p>
+        <p class="subtitle">
+          Posted by
+          {{this.username}}
+          on
+          {{this.niceDate}}</p>
+        <p>{{this.content}}</p>
+      </section>
+      <section class="comments container is-fluid">
+        {{#each this.comments}}
+          <div class="comment has-background-primary box">
+            <p class="subtitle is-5">
+              Posted by
+              {{this.username}}
+              on
+              {{this.niceDate}}
+            </p>
+            <p>
+              {{this.content}}
+            </p>
+          </div>
+        {{/each}}
+      </section>
     </article>
   {{/each}}
 </main>
