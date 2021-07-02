@@ -7,13 +7,10 @@ export function show(element) {
 }
 
 export function getPostBody(post) {
-  const title = post.querySelector(".post-title-input").value.trim();
-  const content = post.querySelector(".post-content-textarea").value.trim();
-  body = JSON.stringify({
-    title,
-    content,
+  return JSON.stringify({
+    title: post.querySelector(".post-title-input").value.trim(),
+    content: post.querySelector(".post-content-textarea").value.trim(),
   });
-  return body;
 }
 
 export async function sendRequest(url, requestMethod, body) {

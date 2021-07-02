@@ -3,6 +3,12 @@ const { User } = require("../../models");
 
 router.post("/signup", async (req, res) => {
   try {
+    const existingUser = await User.findOne({
+      where: { username: req.body.username },
+    });
+    if (existingUser) {
+      return res.status(403).end();
+    }
     const user = await User.create({
       username: req.body.username,
       password: req.body.password,

@@ -51,11 +51,11 @@ function getPostElements(post) {
   };
 }
 
-async function updatePost(event) {
+function updatePost(event) {
   event.stopPropagation();
   const post = event.currentTarget.closest(".post");
   removeEventListeners(post);
-  sendRequest(`/api/posts/update/${post.dataset.id}`, "PUT", getPostBody(post));
+  sendRequest(`/api/posts/${post.dataset.id}`, "PUT", getPostBody(post));
 }
 
 function removeEventListeners(post) {
@@ -82,4 +82,9 @@ function unreadyEdit(post) {
   post.onclick = editPost;
 }
 
-function deletePost() {}
+function deletePost(event) {
+  event.stopPropagation();
+  const post = event.currentTarget.closest(".post");
+  removeEventListeners(post);
+  sendRequest(`/api/posts/${post.dataset.id}`, "DELETE");
+}
