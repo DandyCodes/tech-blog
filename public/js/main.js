@@ -4,7 +4,9 @@ if (navLoginButton) navLoginButton.onclick = navLoginPressed;
 const logoutButton = document.querySelector("#nav-logout-button");
 if (logoutButton) logoutButton.onclick = navLogoutPressed;
 
-async function navLoginPressed() {
+document.querySelector(".navbar-burger").onclick = toggleBurger;
+
+function navLoginPressed() {
   document.location.replace("/login");
 }
 
@@ -13,10 +15,13 @@ async function navLogoutPressed() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   });
-
   if (response.ok) {
-    document.location.replace("/");
-  } else {
-    alert("Log out failed.");
+    return document.location.replace("/");
   }
+  alert("Log out failed.");
+}
+
+function toggleBurger() {
+  document.querySelector(".navbar-burger").classList.toggle("is-active");
+  document.querySelector(".navbar-menu").classList.toggle("is-active");
 }
