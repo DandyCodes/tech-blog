@@ -1,4 +1,4 @@
-<main class="container is-fluid">
+<main class="container is-fluid" data-logged-in="{{loggedIn}}">
   {{#each posts}}
     <article class="box post" data-id="{{this.id}}">
       <section>
@@ -12,7 +12,7 @@
       </section>
       <section class="comments container is-fluid">
         {{#each this.comments}}
-          <div class="comment has-background-primary box">
+          <div class="comment has-background-primary box" data-id="{{this.id}}">
             <p class="subtitle is-5">
               Posted by
               {{this.username}}
