@@ -8,9 +8,10 @@ const commentData = [
     content: "Very informative",
   },
   {
-    content: `This comment
-    goes for
-    several lines`,
+    content: `This comment 
+    is a 
+    multiline template
+    literal`,
   },
 ];
 

@@ -12,8 +12,8 @@ const postData = [
   {
     title: "Beach Boys",
     content: `California Girls.
-    Sloop John B
-    Surfin' USA`,
+    Sloop John B.
+    Surfin' USA.`,
   },
 ];
 
