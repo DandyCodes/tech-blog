@@ -1,44 +1,50 @@
 <main class="container is-fluid">
-  <button id="construct-button" class="button is-link is-medium">Create New Post</button>
+  <a id="create-button" class="button is-link is-medium">Create New Post</a>
   <article id="new-post" class="box is-hidden">
-    <label for="create-input">Title</label>
+    <label for="create-title-input">Title</label>
     <input
-      class="post-title-input title has-text-black"
+      class="edit-title-input title has-text-black"
       name="create-title-input"
       id="create-title-input"
     ></input>
     <label for="create-input">Content</label>
     <textarea
-      class="post-content-textarea"
+      class="edit-content-textarea"
       name="create-content-textarea"
       id="create-content-textarea"
     ></textarea>
-    <button
-      id="create-button" class="button is-primary is-medium"
-    >Create</button>
-    <button id="cancel-create-button" class="button is-medium">Cancel</button>
+    <a
+      id="post-button" class="button is-primary is-medium"
+    >Post</a>
+    <a class="cancel-button button is-medium">Cancel</a>
   </article>
   {{#each posts}}
     <article class="box post" data-id="{{this.id}}">
-      <p class="title post-title">{{this.title}}</p>
-      <input
-        class="post-title-input title has-text-black is-hidden"
-        name="post-{{this.id}}-title-input"
-        id="post-{{this.id}}-title-input"
-      ></input>
-      <p class="post-content">{{this.content}}</p>
-      <textarea
-        class="post-content-textarea is-hidden"
-        name="post-{{this.id}}-content-textarea"
-        id="post-{{this.id}}-content-textarea"
-      ></textarea>
-      <button
-        class="update-button button is-primary is-medium is-hidden"
-      >Update</button>
-      <button class="cancel-edit-button button is-medium is-hidden">Cancel</button>
-      <br />
-      <button class="delete-button button is-medium is-danger is-hidden">Delete
-        Post</button>
+      <section class="current-post-section">
+        <p class="title post-title">{{this.title}}</p>
+        <p class="subtitle post-date">
+            {{this.niceDate}}</p>
+        <p class="post-content">{{this.content}}</p>
+      </section>
+      <section class="edit-post-section is-hidden">
+        <input
+          class="edit-title-input title has-text-black"
+          name="edit-{{this.id}}-title-input"
+          id="edit-{{this.id}}-title-input"
+        ></input>
+        <textarea
+          class="edit-content-textarea"
+          name="edit-{{this.id}}-content-textarea"
+          id="edit-{{this.id}}-content-textarea"
+        ></textarea>
+        <button
+          class="update-button button is-primary is-medium"
+        >Update</button>
+        <a class="cancel-button button is-medium">Cancel</a>
+        <br />
+        <a class="delete-button button is-medium is-danger">Delete</a>
+      </section>
+
     </article>
   {{/each}}
 </main>

@@ -22,9 +22,23 @@
             <p>
               {{this.content}}
             </p>
+            {{#if this.owned}}
+              <a
+                class="delete-comment-button button is-danger is-small"
+              >Delete</a>
+            {{/if}}
           </div>
         {{/each}}
+      </section>
+      <section class="new-comment container is-fluid is-hidden">
+        <textarea
+          name="new-comment-textarea"
+          class="new-comment-textarea"
+        ></textarea>
+        <a class="create-comment-button button is-primary is-medium">Post</a>
+        <a class="cancel-create-comment-button button is-medium">Cancel</a>
       </section>
     </article>
   {{/each}}
 </main>
+<script src="/js/home.js" type="module"></script>

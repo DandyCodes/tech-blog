@@ -1,106 +1,81 @@
 import { hide, show, getPostBody, sendRequest } from "./helpers.js";
 
-const constructButton = document.querySelector("#construct-button");
-constructButton.onclick = constructPost;
-
-const createButton = document.querySelector("#create-button");
-createButton.onclick = createPost;
-
-const cancelCreateButton = document.querySelector("#cancel-create-button");
-cancelCreateButton.onclick = cancelCreatePost;
-
-const posts = Array.from(document.querySelectorAll(".post"));
-posts.forEach(post => (post.onclick = editPost));
-
-const updateButtons = Array.from(document.querySelectorAll(".update-button"));
-updateButtons.forEach(updateButton => (updateButton.onclick = updatePost));
-
-const cancelEditButtons = Array.from(
-  document.querySelectorAll(".cancel-edit-button")
-);
-cancelEditButtons.forEach(
-  cancelEditButton => (cancelEditButton.onclick = cancelEditPost)
-);
-
-const deleteButtons = Array.from(document.querySelectorAll(".delete-button"));
-deleteButtons.forEach(deleteButton => (deleteButton.onclick = deletePost));
-
 const newPost = document.querySelector("#new-post");
+const posts = Array.from(document.querySelectorAll(".post"));
+document.onreadystatechange = init;
 
-function constructPost() {
-  show(newPost);
+function init(event) {
+  resetPosts(event);
+  document.querySelector("#create-button").onclick = readyCreate;
+  document.querySelector("#post-button").onclick = confirmCreatePost;
+  Array.from(document.querySelectorAll(".cancel-button")).forEach(
+    cancelButton => (cancelButton.onclick = resetPosts)
+  );
+  Array.from(document.querySelectorAll(".update-button")).forEach(
+    updateButton => (updateButton.onclick = updatePost)
+  );
+  Array.from(document.querySelectorAll(".delete-button")).forEach(
+    deleteButton => (deleteButton.onclick = deletePost)
+  );
 }
 
-function createPost() {
+function resetPosts(event) {
+  event.stopPropagation();
+  hide(newPost);
+  posts.forEach(post => {
+    hide(post.querySelector(".edit-post-section"));
+    show(post.querySelector(".current-post-section"));
+    post.onclick = editPost;
+    post.style.cursor = "pointer";
+  });
+}
+
+function readyCreate(event) {
+  resetPosts(event);
+  show(newPost);
+  document.querySelector("#create-content-textarea").value = "";
+  const createTitleInput = document.querySelector("#create-title-input");
+  createTitleInput.value = "";
+  createTitleInput.focus();
+}
+
+function confirmCreatePost() {
   sendRequest(`/api/posts`, "POST", getPostBody(newPost));
 }
 
-function cancelCreatePost() {
-  hide(newPost);
-}
-
 function editPost(event) {
-  event.stopPropagation();
+  resetPosts(event);
   const post = event.currentTarget;
-  readyEdit(getPostElements(post));
-}
-
-function readyEdit(postElements) {
-  hide(postElements.title);
-  hide(postElements.content);
-  show(postElements.titleInput);
-  show(postElements.contentTextarea);
-  show(postElements.updateButton);
-  show(postElements.cancelEditButton);
-  show(postElements.deleteButton);
-  postElements.titleInput.value = postElements.title.textContent;
-  postElements.contentTextarea.value = postElements.content.textContent;
-  posts.forEach(post => (post.onclick = null));
-  constructButton.onclick = null;
-}
-
-function getPostElements(post) {
-  return {
-    title: post.querySelector(".post-title"),
-    content: post.querySelector(".post-content"),
-    titleInput: post.querySelector(".post-title-input"),
-    contentTextarea: post.querySelector(".post-content-textarea"),
-    updateButton: post.querySelector(".update-button"),
-    cancelEditButton: post.querySelector(".cancel-edit-button"),
-    deleteButton: post.querySelector(".delete-button"),
-  };
-}
-
-function updatePost(event) {
-  event.stopPropagation();
-  const post = event.currentTarget.closest(".post");
-  post.querySelector(".update-button").onclick = null;
-  post.querySelector(".cancel-edit-button").onclick = null;
   post.onclick = null;
+  post.style.cursor = "initial";
+  const currentTitle = post.querySelector(".post-title");
+  const editTitleInput = post.querySelector(".edit-title-input");
+  editTitleInput.value = currentTitle.textContent;
+  editTitleInput.focus();
+  const currentContent = post.querySelector(".post-content");
+  const editContentTextarea = post.querySelector(".edit-content-textarea");
+  editContentTextarea.value = currentContent.textContent;
+  hide(post.querySelector(".current-post-section"));
+  show(post.querySelector(".edit-post-section"));
+}
+
+function updatePost() {
+  removeAllEventListeners();
+  const post = this.closest(".post");
   sendRequest(`/api/posts/${post.dataset.id}`, "PUT", getPostBody(post));
 }
 
-function cancelEditPost(event) {
-  event.stopPropagation();
-  const post = event.currentTarget.closest(".post");
-  unreadyEdit(getPostElements(post));
+function removeAllEventListeners() {
+  posts.forEach(post => {
+    post.onclick = null;
+    post.querySelector(".update-button").onclick = null;
+    post.querySelector(".cancel-edit-button").onclick = null;
+    post.querySelector(".delete-button").onclick = null;
+  });
 }
 
-function unreadyEdit(postElements) {
-  show(postElements.title);
-  show(postElements.content);
-  hide(postElements.titleInput);
-  hide(postElements.contentTextarea);
-  hide(postElements.updateButton);
-  hide(postElements.cancelEditButton);
-  hide(postElements.deleteButton);
-  posts.forEach(post => (post.onclick = editPost));
-  constructButton.onclick = constructPost;
-}
-
-function deletePost(event) {
-  event.stopPropagation();
-  const post = event.currentTarget.closest(".post");
-  removeEventListeners(post);
+function deletePost() {
+  removeAllEventListeners();
+  const post = this.closest(".post");
   sendRequest(`/api/posts/${post.dataset.id}`, "DELETE");
 }

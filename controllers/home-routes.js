@@ -4,14 +4,14 @@ const withAuth = require("../utils/with-auth");
 
 router.get("/", async (req, res) => {
   const loggedIn = req.session.loggedIn;
-  const posts = await getPosts();
+  const posts = await getAllPosts(req.session.userId);
   res.render("home", { posts, loggedIn });
 });
 
 router.get("/dashboard", withAuth, async (req, res) => {
   const loggedIn = req.session.loggedIn;
   const user = await User.findByPk(req.session.userId);
-  const posts = (await user.getPosts()).map(post => post.dataValues);
+  const posts = await getUserPosts(user);
   res.render("dashboard", { posts, loggedIn });
 });
 
@@ -35,11 +35,17 @@ router.get("*", (req, res) => {
 
 module.exports = router;
 
-async function getPosts() {
+async function getUserPosts(user) {
+  const posts = (await user.getPosts()).map(post => post.dataValues);
+  posts.forEach(post => (post.niceDate = getNiceDate(post)));
+  return posts;
+}
+
+async function getAllPosts(userId) {
   const postRows = await Post.findAll();
   const posts = postRows.map(postRow => postRow.dataValues);
   const posters = await getPosters(postRows);
-  const commentsArrays = await getCommentsArrays(postRows);
+  const commentsArrays = await getCommentsArrays(postRows, userId);
   posts.forEach((post, i) => {
     post.username = posters[i].username;
     post.comments = commentsArrays[i];
@@ -57,7 +63,7 @@ async function getPosters(postRows) {
   return posters;
 }
 
-async function getCommentsArrays(postRows) {
+async function getCommentsArrays(postRows, userId) {
   const commentsArrayRows = [];
   for (const postRow of postRows) {
     commentsArrayRows.push(await postRow.getComments());
@@ -71,6 +77,9 @@ async function getCommentsArrays(postRows) {
       const commenter = await User.findByPk(comment.UserId);
       comment.username = commenter.username;
       comment.niceDate = getNiceDate(comment);
+      if (commenter.id === userId) {
+        comment.owned = true;
+      }
     }
     commentsArrays.push(commentArray);
   }
