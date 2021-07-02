@@ -40,7 +40,10 @@ function readyCreate(event) {
 }
 
 function confirmCreatePost() {
-  sendRequest(`/api/posts`, "POST", getPostBody(newPost));
+  const body = getPostBody(newPost);
+  if (JSON.parse(body).title && JSON.parse(body).content) {
+    sendRequest(`/api/posts`, "POST", body);
+  }
 }
 
 function editPost(event) {
@@ -60,22 +63,25 @@ function editPost(event) {
 }
 
 function updatePost() {
-  removeAllEventListeners();
   const post = this.closest(".post");
-  sendRequest(`/api/posts/${post.dataset.id}`, "PUT", getPostBody(post));
+  const body = getPostBody(post);
+  if (JSON.parse(body).title && JSON.parse(body).content) {
+    removeAllEventListeners();
+    sendRequest(`/api/posts/${post.dataset.id}`, "PUT", body);
+  }
 }
 
 function removeAllEventListeners() {
   posts.forEach(post => {
     post.onclick = null;
     post.querySelector(".update-button").onclick = null;
-    post.querySelector(".cancel-edit-button").onclick = null;
+    post.querySelector(".cancel-button").onclick = null;
     post.querySelector(".delete-button").onclick = null;
   });
 }
 
 function deletePost() {
-  removeAllEventListeners();
   const post = this.closest(".post");
+  removeAllEventListeners();
   sendRequest(`/api/posts/${post.dataset.id}`, "DELETE");
 }

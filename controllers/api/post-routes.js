@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const withAuth = require("../../utils/with-auth");
-const { User, Post } = require("../../models");
+const { User, Post, Comment } = require("../../models");
 
 router.post("/", withAuth, async (req, res) => {
   try {
@@ -16,7 +16,22 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.post("/:id", withAuth, async (req, res) => {
+  try {
+    const newComment = await Comment.create({
+      content: req.body.content,
+    });
+    const post = await Post.findByPk(req.params.id);
+    await newComment.setPost(post);
+    const user = await User.findByPk(req.session.userId);
+    await newComment.setUser(user);
+    res.status(200).json(newComment);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put("/:id", withAuth, async (req, res) => {
   try {
     const user = await User.findByPk(req.session.userId);
     const post = await Post.findByPk(req.params.id);
@@ -32,7 +47,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", withAuth, async (req, res) => {
   try {
     const user = await User.findByPk(req.session.userId);
     const post = await Post.findByPk(req.params.id);

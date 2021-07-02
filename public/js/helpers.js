@@ -8,8 +8,14 @@ export function show(element) {
 
 export function getPostBody(post) {
   return JSON.stringify({
-    title: post.querySelector(".post-title-input").value.trim(),
-    content: post.querySelector(".post-content-textarea").value.trim(),
+    title: post.querySelector(".edit-title-input").value.trim(),
+    content: post.querySelector(".edit-content-textarea").value.trim(),
+  });
+}
+
+export function getCommentBody(post) {
+  return JSON.stringify({
+    content: post.querySelector(".new-comment-textarea").value.trim(),
   });
 }
 

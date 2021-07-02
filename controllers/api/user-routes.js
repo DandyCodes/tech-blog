@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const withAuth = require("../../utils/with-auth");
 const { User } = require("../../models");
 
 router.post("/signup", async (req, res) => {
@@ -13,7 +14,6 @@ router.post("/signup", async (req, res) => {
       username: req.body.username,
       password: req.body.password,
     });
-
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = user.id;
@@ -32,21 +32,16 @@ router.post("/login", async (req, res) => {
         username: req.body.username,
       },
     });
-
     const errorMessage = "Incorrect username or password. Please try again.";
-
     if (!user) {
       res.status(400).json({ errorMessage });
       return;
     }
-
-    const validPassword = await user.checkPassword(req.body.password);
-
+    const validPassword = user.checkPassword(req.body.password);
     if (!validPassword) {
       res.status(400).json({ errorMessage });
       return;
     }
-
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = user.id;
@@ -58,14 +53,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/logout", (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
+router.post("/logout", withAuth, (req, res) => {
+  req.session.destroy(() => {
+    res.status(204).end();
+  });
 });
 
 module.exports = router;

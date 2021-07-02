@@ -31,10 +31,6 @@ button {
   margin-bottom: 1rem;
 }
 
-.post {
-  cursor: pointer;
-}
-
 .post:hover {
   background-color: var(--dark);
 }
