@@ -70,6 +70,7 @@ async function getCommentsArrays(postRows) {
     for (const comment of commentArray) {
       const commenter = await User.findByPk(comment.UserId);
       comment.username = commenter.username;
+      comment.niceDate = getNiceDate(comment);
     }
     commentsArrays.push(commentArray);
   }
